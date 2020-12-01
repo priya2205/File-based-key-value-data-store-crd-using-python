@@ -1,0 +1,26 @@
+I have created basic CRD operations and
+two more method to change the value of key and to extend time to live time.
+I used class and objects to implement this problem
+You can import the library as "import dataStore as ds"
+ a json file will be created you can create and manipulate data by the methods provided in the library
+If you run operations operations wait for few seconds to get output because I have
+implemented time.sleep() method for few seconds to show the functionality of time-to-live  property
+I have implemented Lock to make the program thread-safe.
+This program works well with windows os.
+A guide to the library
+
+ syntax-> datastore.create(key,vallue,timetolive)
+ it takes 2 to 3 parameters if timetolive is not given then it is initialised to zero
+ key - the name of key , it should be capped at 32 chars
+ value - value of key, it should be capped at 16kb
+ timetolive - time -to-live time in seconds
+ syntax-> dataStore.read(key)
+ key -key to be read 
+ syntax-> dataStore.delete(key)
+ key -key to be deleted
+ modifyValue(key,value)
+ key - key, which value has to change
+ value - new value of key, it should be capped at 16kb
+ syntax->extendTimeToLive(key,time)
+ key - key,which timetolive has to extend
+ timetolive - amount of time -to-live time to be extended in seconds
