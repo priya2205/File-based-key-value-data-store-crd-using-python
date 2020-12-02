@@ -63,16 +63,16 @@ class DataStore:
                                 
                           else:
                                 print("OOPs! The key exceeds more than 32 char, the key must be capped at 32 chars")
-                                return "OOPs! The key exceeds more than 32 char, the key must be capped at 32 chars"
+                                #return "OOPs! The key exceeds more than 32 char, the key must be capped at 32 chars"
                       elif value>(16*1024*1024):
                              print("OOPs! The value exceeds more than 16kb, the key must be capped at  16kb")
-                             return "OOPs! The value exceeds more than 16kb, the key must be capped at  16kb"
+                             #return "OOPs! The value exceeds more than 16kb, the key must be capped at  16kb"
                       else:
                              print("Sorry! Memory limit has been exceeded")
-                             return "Sorry! Memory limit has been exceeded" 
+                             #return "Sorry! Memory limit has been exceeded" 
                 else:
                        print("OOPs! Your Key Name is Invalid, Key name can contain numbers(0-9) and alphabets(a-z A-Z) but no special characters") 
-                       return "OOPs! Your Key Name is Invalid, Key name can contain numbers(0-9) and alphabets(a-z A-Z) but no special characters"
+                       #return "OOPs! Your Key Name is Invalid, Key name can contain numbers(0-9) and alphabets(a-z A-Z) but no special characters"
 
 
         self.lock.release()
@@ -85,7 +85,7 @@ class DataStore:
       json_file.close()
       if key not in data:
          print("Oops ! The key you entered is not available, Please ensure you entered a Valid Key")
-         return "Oops ! The key you entered is not available, Please ensure you entered a Valid Key"
+         #return "Oops ! The key you entered is not available, Please ensure you entered a Valid Key"
       else:
          t = data[key]
          if t['timetolive']!=0:
@@ -93,14 +93,14 @@ class DataStore:
                
                 resdata = str(key)+':'+'['+str(t['value'])+','+str(t['timetolive'])+']'
                 print("The data is for the key"+"'"+str(key) +"'"+resdata)
-                return data[key]
+                #return data[key]
             else:
                 print("Sorry,The Key you entered "+str(key)+" its Time to live has been expired "+str(round(time.time()-t['timetolive'],4))+"Seconds ago")
          else:
                 
                 resdata = str(key)+':'+"["+str(t['value'])+','+str(t['timetolive']) +"]"
                 print("The data is for the key"+"'"+str(key) +"'"+resdata)
-                return data[key]
+                #return data[key]
       self.lock.release()
               
     def delete(self,key):
@@ -110,19 +110,21 @@ class DataStore:
          json_line=[]
          if key not in data:
              print("Oops ! The key you entered is not available, Please ensure you entered a Valid Key")
-             return "Oops ! The key you entered is not available, Please ensure you entered a Valid Key"
+             #return "Oops ! The key you entered is not available, Please ensure you entered a Valid Key"
          else:
              t = data[key]
              if t['timetolive']!=0:
-                 if t['timetolive']<time.time():
+                 if time.time()> t['timetolive']:
                      with open(self.fn,"r") as json_file:
                             d = json.load(json_file)
                      del d[key]
                      with open(self.fn,"w") as json_file:
                          json.dump(d,json_file)
                      print("Successful!, The key "+str(key)+" is deleted")
+                     #return "Successful!, The key "+str(key)+" is deleted"
                  else:
                      print("Sorry,The Key you entered"+str(key)+" its Time to live has been expired "+str(round(time.time()-t['timetolive'],4))+"Seconds ago")
+                     #return "Sorry,The Key you entered"+str(key)+" its Time to live has been expired "+str(round(time.time()-t['timetolive'],4))+"Seconds ago"
  
              else:
                  with open(self.fn,"r") as json_file:
@@ -132,6 +134,7 @@ class DataStore:
                      json.dump(d,json_file)
                  json_file.close()
                  print("Successful!, The key "+str(key)+" is deleted")
+                 #return "Successful!, The key "+str(key)+" is deleted"
          self.lock.release()
          
 #modifyValue(key,newvalu e)
@@ -141,7 +144,7 @@ class DataStore:
           data = json.load(json_file)
       if key not in data:
          print("Oops ! The key you entered is not available, Please ensure you entered a Valid Key")
-         return "Oops ! The key you entered is not available, Please ensure you entered a Valid Key"
+         #return "Oops ! The key you entered is not available, Please ensure you entered a Valid Key"
       else:
              t = data[key]
              if(key.isalnum()):
@@ -167,7 +170,7 @@ class DataStore:
            data = json.load(json_file)
          if key not in data:
              print("Oops ! The key you entered is not available, Please ensure you entered a Valid Key")
-             return "Oops ! The key you entered is not available, Please ensure you entered a Valid Key"
+             #return "Oops ! The key you entered is not available, Please ensure you entered a Valid Key"
          else:
              t = data[key]
              if t['timetolive']!=0:
